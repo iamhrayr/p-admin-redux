@@ -1,25 +1,7 @@
 export const FETCH_WORKS = 'work/FETCH_WORKS';
-export const FETCH_WORKS_SUCCESS = 'work/FETCH_WORKS_SUCCESS';
-export const FETCH_WORKS_FAILURE = 'work/FETCH_WORKS_FAILURE';
-
 export const FETCH_WORK = 'work/FETCH_WORK';
-export const FETCH_WORK_SUCCESS = 'work/FETCH_WORK_SUCCESS';
-export const FETCH_WORK_FAILURE = 'work/FETCH_WORK_FAILURE';
-
 export const ADD_WORK = 'work/ADD_WORK';
-export const ADD_WORK_SUCCESS = 'work/ADD_WORK_SUCCESS';
-export const ADD_WORK_FAILURE = 'work/ADD_WORK_FAILURE';
-
 export const EDIT_WORK = 'work/EDIT_WORK';
-export const EDIT_WORK_SUCCESS = 'work/EDIT_WORK_SUCCESS';
-export const EDIT_WORK_FAILURE = 'work/EDIT_WORK_FAILURE';
-
 export const DELETE_WORK = 'work/DELETE_WORK';
-export const DELETE_WORK_SUCCESS = 'work/DELETE_WORK_SUCCESS';
-export const DELETE_WORK_FAILURE = 'work/DELETE_WORK_FAILURE';
-
 export const SET_WORK_VISIBILITY = 'work/SET_WORK_VISIBILITY';
-export const SET_WORK_VISIBILITY_SUCCESS = 'work/SET_WORK_VISIBILITY_SUCCESS';
-export const SET_WORK_VISIBILITY_FAILURE = 'work/SET_WORK_VISIBILITY_FAILURE';
-
 export const SET_SELECTED_WORK = 'work/SET_SELECTED_WORK';

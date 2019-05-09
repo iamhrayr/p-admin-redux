@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { withRouter } from 'react-router';
+import React from 'react';
 import { connect } from 'react-redux';
 
-// actions
+// actions & selectors
 import { categoryActions } from 'Store/category';
-import { workActions } from 'Store/work';
-
-// selectors
-import { getSelectedWork } from 'Store/work/selectors';
+import { workActions, workTypes, workSelectors } from 'Store/work';
+import statusSelector from 'Store/utils/statusSelector';
 
 // components
 import AddEditWorkForm from '../shared/AddEditWorkForm';
@@ -20,25 +17,28 @@ class EditWork extends React.PureComponent {
   }
 
   render() {
-    const { editWork, work, categories, selectedWork } = this.props;
-    // return null;
-    return selectedWork ? (
+    const { editWork, fetchWorkStatus, editWorkStatus, work, categories, selectedWork } = this.props;
+
+    return (
       <AddEditWorkForm
         onSubmit={editWork}
-        onSubmitLoading={!!'editWorkLoading'}
-        data={selectedWork.data}
-        datafetched={selectedWork.fetched}
-        dataLoadingError={'error'}
+        onSubmitLoading={editWorkStatus.loading}
+        data={selectedWork}
+        dataLoading={fetchWorkStatus.loading}
+        dataFetched={fetchWorkStatus.done}
+        dataLoadingError={fetchWorkStatus.error}
         categories={categories}
       />
-    ) : null;
+    );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   categories: state.category.list,
   work: state.work.item,
-  selectedWork: getSelectedWork(state),
+  selectedWork: workSelectors.getSelectedWork(state),
+  fetchWorkStatus: statusSelector(state, workTypes.FETCH_WORK),
+  editWorkStatus: statusSelector(state, workTypes.EDIT_WORK),
 });
 
 export default connect(

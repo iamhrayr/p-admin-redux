@@ -1,16 +1,13 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
+import { beginType, successType, failureType } from 'redux-api-status';
 
 import * as types from './types';
 import dataToIdMap from 'Utils/dataToIdMap';
 
 const workListReducer = handleActions(
   {
-    [types.FETCH_WORKS]: (state, action) => ({
-      ...state,
-      fetching: true
-    }),
-    [types.FETCH_WORKS_SUCCESS]: (state, action) => {
+    [successType(types.FETCH_WORKS)]: (state, action) => {
       const { byId, allIds } = dataToIdMap(action.payload.docs);
       const { docs, ...pagination } = action.payload;
       return {
@@ -19,51 +16,51 @@ const workListReducer = handleActions(
         allIds,
         pagination,
         fetching: false,
-        fetched: true
+        fetched: true,
       };
-    }
+    },
+    // [successType(types.EDIT_WORK)]: (state, action) => ({
+    //   ...state,
+    //   byId: {
+    //     ...state.byId,
+    //     [action.payloadf._id]: action.payload,
+    //   },
+    // }),
   },
   {
     fetching: false,
     fetched: false,
     byId: {},
     allIds: [],
-    pagination: {}
-  }
+    pagination: {},
+  },
 );
 
 const itemDetailsReducer = handleActions(
   {
-    [types.FETCH_WORK]: (state, action) => ({
+    [successType(types.FETCH_WORK)]: (state, action) => ({
       ...state,
-      [action.payload.id]: {
-        fetching: true,
-        fetched: false
-      }
+      [action.payload._id]: action.payload,
     }),
-    [types.FETCH_WORK_SUCCESS]: (state, action) => ({
+    [successType(types.EDIT_WORK)]: (state, action) => ({
       ...state,
-      [action.payload._id]: {
-        fetching: false,
-        fetched: true,
-        data: action.payload
-      }
-    })
+      [action.payload._id]: action.payload,
+    }),
   },
-  {}
+  {},
 );
 
 const selectedWorkReducer = handleActions(
   {
-    [types.SET_SELECTED_WORK]: (state, action) => action.payload.id
+    [types.SET_SELECTED_WORK]: (state, action) => action.payload.id,
   },
-  null
+  null,
 );
 
 export default combineReducers({
   list: workListReducer,
   itemDetailsById: itemDetailsReducer,
-  selectedWork: selectedWorkReducer
+  selectedWork: selectedWorkReducer,
 });
 
 // TODO: think about the shape of state

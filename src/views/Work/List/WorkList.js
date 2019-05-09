@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, Divider } from 'antd';
 
-import { workActions } from 'Store/work';
-import { getWorkList } from 'Store/work/selectors';
+import { workActions, workTypes, workSelectors } from 'Store/work';
+import statusSelector from 'Store/utils/statusSelector';
+
 import getColumns from './table-columns';
 
 class WorkList extends React.PureComponent {
@@ -14,7 +15,7 @@ class WorkList extends React.PureComponent {
   }
 
   render() {
-    const { works, pagination, worksFetching } = this.props;
+    const { works, pagination, fetchsWorkStatus } = this.props;
 
     return (
       <>
@@ -25,8 +26,8 @@ class WorkList extends React.PureComponent {
         <Divider />
 
         <Table
-          loading={worksFetching}
-          rowKey={(row) => row._id}
+          loading={fetchsWorkStatus.loading}
+          rowKey={row => row._id}
           columns={getColumns(this.props)}
           dataSource={works}
           pagination={{
@@ -36,7 +37,7 @@ class WorkList extends React.PureComponent {
             total: pagination.total,
             onChange: (page, size) => {
               this.props.fetchWorks({ page, size });
-            }
+            },
           }}
         />
       </>
@@ -48,14 +49,15 @@ class WorkList extends React.PureComponent {
   };
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   pagination: state.work.list.pagination,
   worksFetching: state.work.list.fetching,
   worksFetched: state.work.list.fetched,
-  works: getWorkList(state)
+  works: workSelectors.getWorkList(state),
+  fetchsWorkStatus: statusSelector(state, workTypes.FETCH_WORKS),
 });
 
 export default connect(
   mapStateToProps,
-  { fetchWorks: workActions.fetchWorks }
+  { fetchWorks: workActions.fetchWorks },
 )(WorkList);
