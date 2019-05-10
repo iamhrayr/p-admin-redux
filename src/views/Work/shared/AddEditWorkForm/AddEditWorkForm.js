@@ -20,7 +20,7 @@ const AddEditWorkForm = ({
   dataLoadingError,
   history,
 }) =>
-  dataFetched && (
+  data ? (
     <Formik
       initialValues={{
         title: data ? data.title : '',
@@ -146,6 +146,8 @@ const AddEditWorkForm = ({
         </Spin>
       )}
     />
+  ) : (
+    <Spin />
   );
 
 export default withRouter(AddEditWorkForm);

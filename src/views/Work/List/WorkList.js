@@ -9,7 +9,7 @@ import getColumns from './table-columns';
 
 class WorkList extends React.PureComponent {
   componentDidMount() {
-    if (!this.props.worksFetched) {
+    if (!this.props.fetchsWorkStatus.done) {
       this.props.fetchWorks();
     }
   }
@@ -51,13 +51,15 @@ class WorkList extends React.PureComponent {
 
 const mapStateToProps = state => ({
   pagination: state.work.list.pagination,
-  worksFetching: state.work.list.fetching,
-  worksFetched: state.work.list.fetched,
   works: workSelectors.getWorkList(state),
   fetchsWorkStatus: statusSelector(state, workTypes.FETCH_WORKS),
 });
 
 export default connect(
   mapStateToProps,
-  { fetchWorks: workActions.fetchWorks },
+  {
+    fetchWorks: workActions.fetchWorks,
+    editWork: workActions.editWork,
+    deleteWork: workActions.deleteWork,
+  },
 )(WorkList);

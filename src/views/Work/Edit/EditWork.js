@@ -17,8 +17,8 @@ class EditWork extends React.PureComponent {
   }
 
   render() {
-    const { editWork, fetchWorkStatus, editWorkStatus, work, categories, selectedWork } = this.props;
-
+    const { editWork, fetchWorkStatus, editWorkStatus, categories, selectedWork } = this.props;
+    console.log('selectedwork', selectedWork);
     return (
       <AddEditWorkForm
         onSubmit={editWork}
@@ -35,7 +35,6 @@ class EditWork extends React.PureComponent {
 
 const mapStateToProps = state => ({
   categories: state.category.list,
-  work: state.work.item,
   selectedWork: workSelectors.getSelectedWork(state),
   fetchWorkStatus: statusSelector(state, workTypes.FETCH_WORK),
   editWorkStatus: statusSelector(state, workTypes.EDIT_WORK),

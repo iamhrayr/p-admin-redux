@@ -1,6 +1,6 @@
 import { createStatusSelectors } from 'redux-api-status';
 
-const statusSelectors = createStatusSelectors(state => state.status);
+const statusSelectors = createStatusSelectors(state => state.requests);
 
 export default (state, scope) => {
   return {

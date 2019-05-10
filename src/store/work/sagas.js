@@ -28,7 +28,6 @@ function* fetchWorkHandler(action) {
 }
 
 function* editWorkHandler({ payload, meta = {} }) {
-  console.log('values sending', payload);
   try {
     yield put(begin(types.EDIT_WORK));
     const work = yield call(api.editWork, payload);
@@ -38,6 +37,22 @@ function* editWorkHandler({ payload, meta = {} }) {
     }
   } catch (e) {
     yield put(failure(types.EDIT_WORK, e.response.data));
+    if (meta.reject) {
+      yield fork(meta.reject, e.response.data);
+    }
+  }
+}
+
+function* deleteWorkHandler({ payload, meta = {} }) {
+  try {
+    yield put(begin(types.DELETE_WORK));
+    const work = yield call(api.deleteWork, payload.id);
+    yield put(success(types.DELETE_WORK, work.data));
+    if (meta.resolve) {
+      yield fork(meta.resolve, work.data);
+    }
+  } catch (e) {
+    yield put(failure(types.DELETE_WORK, e.response.data));
     if (meta.reject) {
       yield fork(meta.reject, e.response.data);
     }
@@ -57,6 +72,7 @@ function* watcherSaga() {
   yield takeLatest(types.FETCH_WORK, fetchWorkHandler);
   yield takeLatest(types.EDIT_WORK, editWorkHandler);
   yield takeLatest(types.SET_SELECTED_WORK, setSelectedWorkHandler);
+  yield takeLatest(types.DELETE_WORK, deleteWorkHandler);
 }
 
 export default [fork(watcherSaga)];

@@ -7,5 +7,5 @@ import categoryReducer from './category';
 export default combineReducers({
   work: workReducer,
   category: categoryReducer,
-  status: createStatusReducer(),
+  requests: createStatusReducer(),
 });

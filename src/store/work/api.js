@@ -11,3 +11,7 @@ export const fetchWork = id => {
 export const editWork = ({ id, input }) => {
   return http.patch(`/works/${id}`, input);
 };
+
+export const deleteWork = id => {
+  return http.delete(`/works/${id}`);
+};

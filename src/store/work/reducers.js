@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 import { beginType, successType, failureType } from 'redux-api-status';
+import produce from 'immer';
 
 import * as types from './types';
 import dataToIdMap from 'Utils/dataToIdMap';
@@ -15,21 +16,17 @@ const workListReducer = handleActions(
         byId,
         allIds,
         pagination,
-        fetching: false,
-        fetched: true,
       };
     },
-    // [successType(types.EDIT_WORK)]: (state, action) => ({
-    //   ...state,
-    //   byId: {
-    //     ...state.byId,
-    //     [action.payloadf._id]: action.payload,
-    //   },
-    // }),
+    [successType(types.EDIT_WORK)]: produce((draft, action) => {
+      draft.byId[action.payload._id] = action.payload;
+    }),
+    [successType(types.DELETE_WORK)]: produce((draft, action) => {
+      delete draft.byId[action.payload._id];
+      draft.allIds = draft.allIds.filter(id => id !== action.payload._id);
+    }),
   },
   {
-    fetching: false,
-    fetched: false,
     byId: {},
     allIds: [],
     pagination: {},
@@ -38,13 +35,14 @@ const workListReducer = handleActions(
 
 const itemDetailsReducer = handleActions(
   {
-    [successType(types.FETCH_WORK)]: (state, action) => ({
-      ...state,
-      [action.payload._id]: action.payload,
+    [successType(types.FETCH_WORK)]: produce((draft, action) => {
+      draft[action.payload._id] = action.payload;
     }),
-    [successType(types.EDIT_WORK)]: (state, action) => ({
-      ...state,
-      [action.payload._id]: action.payload,
+    [successType(types.EDIT_WORK)]: produce((draft, action) => {
+      draft[action.payload._id] = action.payload;
+    }),
+    [successType(types.DELETE_WORK)]: produce((draft, action) => {
+      delete draft[action.payload._id];
     }),
   },
   {},

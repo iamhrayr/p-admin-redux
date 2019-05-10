@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "formik": "^1.5.4",
     "history": "^4.9.0",
+    "immer": "^3.1.1",
     "normalizr": "^3.3.0",
     "prop-types": "^15.7.2",
     "qs": "^6.7.0",
