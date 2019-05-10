@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Spin } from 'antd';
 
 // actions & selectors
 import { categoryActions } from 'Store/category';
@@ -18,7 +19,11 @@ class EditWork extends React.PureComponent {
 
   render() {
     const { editWork, fetchWorkStatus, editWorkStatus, categories, selectedWork } = this.props;
-    console.log('selectedwork', selectedWork);
+
+    if (fetchWorkStatus.loading) {
+      return <Spin />;
+    }
+
     return (
       <AddEditWorkForm
         onSubmit={editWork}

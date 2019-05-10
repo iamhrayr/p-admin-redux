@@ -1,26 +1,36 @@
-import React, { useState } from "react";
-import { Query, Mutation } from "react-apollo";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Spin } from 'antd';
 
-// queries & mutations
-import ADD_WORK from "Graphql/work/addWork.gql";
-import WORKS_QUERY from "Graphql/work/worksQuery.gql";
+// actions & selectors
+import { categoryActions } from 'Store/category';
+import { workActions, workTypes, workSelectors } from 'Store/work';
+import statusSelector from 'Store/utils/statusSelector';
 
-import AddEditWorkForm from "../shared/AddEditWorkForm";
+// components
+import AddEditWorkForm from '../shared/AddEditWorkForm';
 
-export default () => (
-  <Mutation
-    mutation={ADD_WORK}
-    update={(cache, { data: { addWork } }) => {
-      const { works } = cache.readQuery({ query: WORKS_QUERY });
+class NewWork extends React.PureComponent {
+  componentDidMount() {
+    this.props.fetchCategories();
+  }
 
-      cache.writeQuery({
-        query: WORKS_QUERY,
-        data: { works: [...works, addWork] }
-      });
-    }}
-  >
-    {(addWork, { loading }) => (
-      <AddEditWorkForm onSubmit={addWork} onSubmitLoading={loading} />
-    )}
-  </Mutation>
-);
+  render() {
+    const { categories, addWork, addWorkStatus } = this.props;
+
+    return <AddEditWorkForm onSubmit={addWork} onSubmitLoading={addWorkStatus.loading} categories={categories} />;
+  }
+}
+
+const mapStateToProps = state => ({
+  categories: state.category.list,
+  addWorkStatus: statusSelector(state, workTypes.ADD_WORK),
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    fetchCategories: categoryActions.fetchCategories,
+    addWork: workActions.addWork,
+  },
+)(NewWork);

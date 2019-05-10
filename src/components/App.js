@@ -11,7 +11,7 @@ import history from 'Utils/history';
 import Home from 'Views/Home';
 // import Skills from 'Views/Skills';
 import WorkList from 'Views/Work/List';
-// import NewWork from 'Views/Work/New';
+import NewWork from 'Views/Work/New';
 import EditWork from 'Views/Work/Edit';
 
 const layoutStyles = {
@@ -20,7 +20,7 @@ const layoutStyles = {
   overflow: 'auto',
   padding: 24,
   background: '#fff',
-  minHeight: 280
+  minHeight: 280,
 };
 
 export default () => {
@@ -38,7 +38,7 @@ export default () => {
               {/* <Route path="/skills" component={Skills} /> */}
               <Route path="/works" exact component={WorkList} />
               <Route path="/works/edit/:id" component={EditWork} />
-              {/* <Route path="/works/new-work" component={NewWork} /> */}
+              <Route path="/works/new-work" component={NewWork} />
             </>
           </Layout.Content>
         </Layout>

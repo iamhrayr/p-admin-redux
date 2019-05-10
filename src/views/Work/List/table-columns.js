@@ -56,7 +56,15 @@ export default props => [
     dataIndex: 'actions',
     key: 'actions',
     render: (col, row) => (
-      <Button type="danger" shape="circle" icon="delete" onClick={() => props.deleteWork({ id: row._id })} />
+      <>
+        <Button
+          type="primary"
+          shape="circle"
+          icon="edit"
+          onClick={() => props.history.push(`/works/edit/${row._id}`)}
+        />{' '}
+        <Button type="danger" shape="circle" icon="delete" onClick={() => props.deleteWork({ id: row._id })} />
+      </>
     ),
   },
 ];
