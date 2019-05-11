@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Input, Button, Switch, Select, Row, Col, Spin } from 'antd';
 import { Formik } from 'formik';
 import { withRouter } from 'react-router-dom';
+// import jsonFormData from 'json-form-data';
+import objectToFormData from 'object-to-formdata';
 
 // compoentns
 import Thumbnail from './Thumbnail';
@@ -9,6 +11,22 @@ import Images from './Images';
 import EditableTagList from './EditableTagList';
 
 import formSchema from './formSchema';
+// import objectToFormData from 'Utils/objectToFormData';
+
+// const convertToFormData = (data) => {
+//   const newImages = values.images.filter(img => !img.key);
+//   const oldImages = values.images.filter(img => img.key);
+//   const d = {
+//     ...data,
+//     oldImages,
+//     images: newImages,
+//   };
+//   const fd = new FormData();
+
+//   for (const key in data) {
+//     if (data[key])
+//   }
+// }
 
 const AddEditWorkForm = ({
   onSubmit,
@@ -22,23 +40,33 @@ const AddEditWorkForm = ({
 }) => (
   <Formik
     initialValues={{
-      title: data ? data.title : '',
-      description: data ? data.description : '',
+      title: data ? data.title : 'testing',
+      description: data ? data.description : 'lorem ipsum dolor sit amet',
       thumbnail: data ? data.thumbnail : {},
       images: data ? data.images : [],
-      tags: data ? data.tags : [],
-      category: data ? data.category._id : '',
+      tags: data ? data.tags : ['bubu'],
+      category: data ? data.category._id : '4',
       published: data ? data.published : false,
     }}
     validationSchema={formSchema}
     onSubmit={(values, actions) => {
+      const fd = new FormData();
+      for (const key in values) {
+        if (key === 'images') {
+          for (const img of values.images) {
+            fd.append(key, img);
+          }
+        }
+        fd.append(key, values[key]);
+      }
+
       onSubmit(
-        { id: data && data._id, input: values },
+        { id: data && data._id, input: fd },
         {
           resolve: data => {
             console.log('data', data);
             actions.setSubmitting(false);
-            history.push('/works');
+            // history.push('/works');
           },
           reject: e => {
             console.log('error', e);

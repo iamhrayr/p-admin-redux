@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
-import Dropzone, { useDropzone } from "react-dropzone";
-import { notification, Button } from "antd";
-import styled from "styled-components";
+import React, { useCallback, useState } from 'react';
+import Dropzone, { useDropzone } from 'react-dropzone';
+import { notification, Button } from 'antd';
+import styled from 'styled-components';
 
-import DropArea from "Components/DropArea";
+import DropArea from 'Components/DropArea';
 
 const Thumbnail = styled.div`
   width: 100px;
@@ -37,17 +37,13 @@ const ALLOWED_FILE_SIZE = 2 * 1024 * 1024;
 
 export default class Images extends React.Component {
   state = {
-    imgPreviews: this.props.images
+    imgPreviews: this.props.images,
   };
 
   render() {
     return (
       <>
-        <Dropzone
-          onDrop={this._onDrop}
-          accept="image/jpeg, image/png"
-          maxSize={ALLOWED_FILE_SIZE}
-        >
+        <Dropzone onDrop={this._onDrop} accept="image/jpeg, image/png" maxSize={ALLOWED_FILE_SIZE}>
           {({ getRootProps, getInputProps }) => (
             <DropArea
               getRootProps={getRootProps}
@@ -60,12 +56,7 @@ export default class Images extends React.Component {
           {this.state.imgPreviews.map((image, index) => (
             <Thumbnail key={index}>
               <img src={image.url} />
-              <Button
-                type="danger"
-                shape="circle"
-                icon="delete"
-                onClick={() => this._handleImageDelete(index)}
-              />
+              <Button type="danger" shape="circle" icon="delete" onClick={() => this._handleImageDelete(index)} />
             </Thumbnail>
           ))}
         </div>
@@ -75,14 +66,14 @@ export default class Images extends React.Component {
 
   _onDrop = (acceptedFiles, rejectedFiles) => {
     if (acceptedFiles.length > 0) {
-      this.props.setFieldValue("images", acceptedFiles);
+      this.props.setFieldValue('images', [...this.props.images, ...acceptedFiles]);
     }
 
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
       reader.onload = e => {
         this.setState({
-          imgPreviews: [...this.state.imgPreviews, { url: e.target.result }]
+          imgPreviews: [...this.state.imgPreviews, { url: e.target.result }],
         });
       };
 
@@ -92,21 +83,18 @@ export default class Images extends React.Component {
     if (rejectedFiles.length > 0) {
       const fileNames = rejectedFiles.map(i => i.name);
       notification.error({
-        message: "Files rejected",
-        description: `${fileNames.join(", ")} files are wrong format`
+        message: 'Files rejected',
+        description: `${fileNames.join(', ')} files are wrong format`,
       });
     }
   };
 
   _handleImageDelete = index => {
     const images = this.props.images.filter((img, i) => i !== index);
-    this.props.setFieldValue("images", images);
+    this.props.setFieldValue('images', images);
 
     this.setState({
-      imgPreviews: [
-        ...this.state.imgPreviews.slice(0, index),
-        ...this.state.imgPreviews.slice(index + 1)
-      ]
+      imgPreviews: [...this.state.imgPreviews.slice(0, index), ...this.state.imgPreviews.slice(index + 1)],
     });
   };
 }

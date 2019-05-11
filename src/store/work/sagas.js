@@ -46,7 +46,7 @@ function* editWorkHandler({ payload, meta = {} }) {
 function* addWorkHandler({ payload, meta = {} }) {
   try {
     yield put(begin(types.ADD_WORK));
-    const work = yield call(api.addWork, payload);
+    const work = yield call(api.addWork, payload.input);
     yield put(success(types.ADD_WORK, work.data));
     if (meta.resolve) {
       yield fork(meta.resolve, work.data);

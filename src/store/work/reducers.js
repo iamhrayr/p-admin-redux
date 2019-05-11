@@ -24,6 +24,7 @@ const workListReducer = handleActions(
     [successType(types.DELETE_WORK)]: produce((draft, action) => {
       delete draft.byId[action.payload._id];
       draft.allIds = draft.allIds.filter(id => id !== action.payload._id);
+      draft.pagination.total--;
     }),
   },
   {

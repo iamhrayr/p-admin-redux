@@ -9,11 +9,19 @@ export const fetchWork = id => {
 };
 
 export const addWork = input => {
-  return http.post(`/works/`, input);
+  return http.post(`/works/`, input, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const editWork = ({ id, input }) => {
-  return http.patch(`/works/${id}`, input);
+  return http.patch(`/works/${id}`, input, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const deleteWork = id => {
