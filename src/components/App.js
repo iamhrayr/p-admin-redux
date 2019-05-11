@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Router, Route } from 'react-router';
 import { Layout, Breadcrumb } from 'antd';
@@ -23,7 +24,7 @@ const layoutStyles = {
   minHeight: 280,
 };
 
-export default () => {
+const App = () => {
   // const a: number = 18;
 
   return (
@@ -46,3 +47,5 @@ export default () => {
     </Router>
   );
 };
+
+export default hot(App);

@@ -2,6 +2,7 @@
   "presets": ["@babel/preset-env", "@babel/preset-react"],
   "plugins": [
     "jsx-control-statements",
+    "react-hot-loader/babel",
     "@babel/plugin-transform-arrow-functions",
     "@babel/plugin-syntax-object-rest-spread",
     "@babel/plugin-proposal-class-properties"

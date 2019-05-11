@@ -12,6 +12,7 @@ export const addWork = input => {
   return http.post(`/works/`, input, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Accept: 'application/json',
     },
   });
 };
