@@ -1,22 +1,93 @@
-// formData - instance of FormData object
-// data - object to post
-export default function objectToFormData(formData, data, previousKey) {
-  if (data instanceof Object) {
-    Object.keys(data).forEach(key => {
-      const value = data[key];
-      if (value instanceof Object && !Array.isArray(value)) {
-        return this.objectToFormData(formData, value, key);
-      }
-      if (previousKey) {
-        key = `${previousKey}[${key}]`;
-      }
-      if (Array.isArray(value)) {
-        value.forEach(val => {
-          formData.append(`${key}[]`, val);
-        });
-      } else {
-        formData.append(key, value);
-      }
-    });
-  }
+'use strict';
+
+function isUndefined(value) {
+  return value === undefined;
 }
+
+function isNull(value) {
+  return value === null;
+}
+
+function isObject(value) {
+  return value === Object(value);
+}
+
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+function isDate(value) {
+  return value instanceof Date;
+}
+
+function isBlob(value) {
+  return value && typeof value.size === 'number' && typeof value.type === 'string' && typeof value.slice === 'function';
+}
+
+function isFile(value) {
+  return (
+    isBlob(value) &&
+    (typeof value.lastModifiedDate === 'object' || typeof value.lastModified === 'number') &&
+    typeof value.name === 'string'
+  );
+}
+
+function isFormData(value) {
+  return value instanceof FormData;
+}
+
+function objectToFormData(obj, cfg, fd, pre) {
+  if (isFormData(cfg)) {
+    pre = fd;
+    fd = cfg;
+    cfg = null;
+  }
+
+  cfg = cfg || {};
+  cfg.indices = isUndefined(cfg.indices) ? false : cfg.indices;
+  cfg.nulls = isUndefined(cfg.nulls) ? true : cfg.nulls;
+  fd = fd || new FormData();
+
+  if (isUndefined(obj)) {
+    return fd;
+  } else if (isNull(obj)) {
+    if (cfg.nulls) {
+      fd.append(pre, '');
+    }
+  } else if (isArray(obj)) {
+    if (obj.length) {
+      obj.forEach(function(value, index) {
+        // ATTENTION: this part is specific only for my api
+        // Multer does not accept indexed array files like image[1], image[2]
+        if (value instanceof File || value instanceof Blob) {
+          var key = pre;
+        } else {
+          var key = pre + '[' + index + ']';
+        }
+        objectToFormData(value, cfg, fd, key);
+      });
+    }
+  } else if (isDate(obj)) {
+    fd.append(pre, obj.toISOString());
+  } else if (isObject(obj) && !isFile(obj) && !isBlob(obj)) {
+    Object.keys(obj).forEach(function(prop) {
+      var value = obj[prop];
+
+      if (isArray(value)) {
+        while (prop.length > 2 && prop.lastIndexOf('[]') === prop.length - 2) {
+          prop = prop.substring(0, prop.length - 2);
+        }
+      }
+
+      var key = pre ? pre + '[' + prop + ']' : prop;
+
+      objectToFormData(value, cfg, fd, key);
+    });
+  } else {
+    fd.append(pre, obj);
+  }
+
+  return fd;
+}
+
+module.exports = objectToFormData;
