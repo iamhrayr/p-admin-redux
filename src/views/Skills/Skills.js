@@ -1,26 +1,37 @@
-import React, { useState } from "react";
-import { Query } from "react-apollo";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { skillActions, skillTypes, skillSelectors } from 'Store/skill';
+import statusSelector from 'Store/utils/statusSelector';
 
 // components
-import SkillsList from "./SkillsList";
+import SkillsList from './SkillsList';
 
-// queries
-import skillsQuery from "Graphql/skill/skillsQuery.gql";
+const Skills = ({ fetchSkills, skills, fetchSkillsStatus: { loading, error, done } }) => {
+  useEffect(() => {
+    if (!done) {
+      fetchSkills();
+    }
+  }, []);
 
-const Skills = () => {
   return (
     <div>
       <h1>Skills</h1>
-      <Query query={skillsQuery}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-
-          return <SkillsList skills={data.skills} />;
-        }}
-      </Query>
+      {loading && 'Loading...'}
+      {error && `Error! ${error.message}`}
+      {done && <SkillsList skills={skills} />}
     </div>
   );
 };
 
-export default React.memo(Skills);
+const mapStateToProps = state => ({
+  skills: skillSelectors.getSkillList(state),
+  fetchSkillsStatus: statusSelector(state, skillTypes.FETCH_SKILLS),
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    fetchSkills: skillActions.fetchSkills,
+  },
+)(React.memo(Skills));

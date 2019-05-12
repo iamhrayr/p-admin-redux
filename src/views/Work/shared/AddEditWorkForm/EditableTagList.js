@@ -1,10 +1,10 @@
-import React from "react";
-import { Tag, Input, Tooltip, Icon } from "antd";
+import React from 'react';
+import { Tag, Input, Tooltip, Icon } from 'antd';
 
 export default class EditableTagList extends React.Component {
   state = {
     inputVisible: false,
-    inputValue: ""
+    inputValue: '',
   };
 
   render() {
@@ -13,8 +13,8 @@ export default class EditableTagList extends React.Component {
 
     return (
       <div>
-        {tags.map(tag => (
-          <Tag key={tag} closable onClose={() => this._handleRemove(tag)}>
+        {tags.map((tag, i) => (
+          <Tag key={i} closable onClose={() => this._handleRemove(tag)}>
             {tag}
           </Tag>
         ))}
@@ -33,10 +33,7 @@ export default class EditableTagList extends React.Component {
         </If>
 
         <If condition={!inputVisible}>
-          <Tag
-            onClick={this._showInput}
-            style={{ background: "#fff", borderStyle: "dashed" }}
-          >
+          <Tag onClick={this._showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
             <Icon type="plus" /> New Tag
           </Tag>
         </If>
@@ -64,7 +61,7 @@ export default class EditableTagList extends React.Component {
 
     this.setState({
       inputVisible: false,
-      inputValue: ""
+      inputValue: '',
     });
   };
 

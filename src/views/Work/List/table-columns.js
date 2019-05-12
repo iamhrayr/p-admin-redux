@@ -32,8 +32,8 @@ export default props => [
     key: 'tags',
     dataIndex: 'tags',
     render: tags =>
-      tags.map(tag => (
-        <Tag color="green" key={tag}>
+      tags.map((tag, i) => (
+        <Tag color="green" key={i}>
           {tag.toUpperCase()}
         </Tag>
       )),

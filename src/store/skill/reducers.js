@@ -5,9 +5,9 @@ import { beginType, successType, failureType } from 'redux-api-status';
 import * as types from './types';
 import dataToIdMap from 'Utils/dataToIdMap';
 
-const categoryListReducer = handleActions(
+const skillListReducer = handleActions(
   {
-    [successType(types.FETCH_CATEGORIES)]: (state, action) => {
+    [successType(types.FETCH_SKILLS)]: (state, action) => {
       const { byId, allIds } = dataToIdMap(action.payload.docs);
       const { docs, ...pagination } = action.payload;
       return {
@@ -26,5 +26,5 @@ const categoryListReducer = handleActions(
 );
 
 export default combineReducers({
-  list: categoryListReducer,
+  list: skillListReducer,
 });
