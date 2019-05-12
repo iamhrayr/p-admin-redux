@@ -1,16 +1,16 @@
-import React from "react";
-import { Button, List } from "antd";
+import React from 'react';
+import { Button, List } from 'antd';
 
 // components
-import SkillItem from "./SkillItem";
+import SkillItem from './SkillItem';
 
 // export default ({ move, swap, push, insert, form }) => (
-export default ({ skills }) => (
+const SkillsList = ({ skills, editSkill }) => (
   <>
     <List
       bordered={false}
       dataSource={skills}
-      renderItem={(item, index) => <SkillItem skillData={item} />}
+      renderItem={(item, index) => <SkillItem skillData={item} editSkill={editSkill} />}
     />
     <Button
       type="primary"
@@ -21,3 +21,5 @@ export default ({ skills }) => (
     </Button>
   </>
 );
+
+export default React.memo(SkillsList);

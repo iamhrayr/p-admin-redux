@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 import { beginType, successType, failureType } from 'redux-api-status';
+import produce from 'immer';
 
 import * as types from './types';
 import dataToIdMap from 'Utils/dataToIdMap';
@@ -17,6 +18,9 @@ const skillListReducer = handleActions(
         pagination,
       };
     },
+    [successType(types.EDIT_SKILL)]: produce((draft, action) => {
+      draft.byId[action.payload._id] = action.payload;
+    }),
   },
   {
     byId: {},

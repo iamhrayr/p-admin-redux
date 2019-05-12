@@ -18,20 +18,20 @@ const ColoredDiv = styled.div`
   cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
 `;
 
-export default ({ skillData }) => {
+const SkillItem = ({ skillData, editSkill }) => {
   const [isEditMode, setEditMode] = useState(false);
   const inactiveClass = classNames({ inactive: !isEditMode });
 
   return (
     <Formik
       initialValues={skillData}
-      onSubmit={(values, actions) => {
-        editSkill({
-          variables: {
-            ...values,
-            percent: Number(values.percent),
+      onSubmit={({ _id, ...input }, actions) => {
+        editSkill(
+          { id: _id, input },
+          {
+            resolve: () => setEditMode(!isEditMode),
           },
-        });
+        );
       }}
     >
       {({ handleChange, handleSubmit, values, setFieldValue }) => (
@@ -63,9 +63,7 @@ export default ({ skillData }) => {
                   <ChromePicker
                     color={values.color}
                     disableAlpha={false}
-                    onChange={color => {
-                      setFieldValue('color', color.hex);
-                    }}
+                    onChange={color => setFieldValue('color', color.hex)}
                   />
                 }
                 disabled={!isEditMode}
@@ -96,3 +94,5 @@ export default ({ skillData }) => {
     </Formik>
   );
 };
+
+export default React.memo(SkillItem);
