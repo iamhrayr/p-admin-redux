@@ -31,10 +31,27 @@ function* editSkillHandler({ payload, meta = {} }) {
   }
 }
 
+function* publishSkillHandler({ payload, meta = {} }) {
+  try {
+    yield put(begin(types.PUBLISH_SKILL));
+    const skill = yield call(api.publishSkill, payload);
+    yield put(success(types.PUBLISH_SKILL, { ...skill.data, localId: payload.localId }));
+    if (meta.resolve) {
+      meta.resolve(skill.data);
+    }
+  } catch (e) {
+    yield put(failure(types.PUBLISH_SKILL, e.response.data));
+    if (meta.reject) {
+      meta.reject(e.response.data);
+    }
+  }
+}
+
 // watchers
 function* watcherSaga() {
   yield takeLatest(types.FETCH_SKILLS, fetchSkillsHandler);
   yield takeLatest(types.EDIT_SKILL, editSkillHandler);
+  yield takeLatest(types.PUBLISH_SKILL, publishSkillHandler);
 }
 
 export default [fork(watcherSaga)];

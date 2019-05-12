@@ -7,7 +7,14 @@ import statusSelector from 'Store/utils/statusSelector';
 // components
 import SkillsList from './SkillsList';
 
-const Skills = ({ fetchSkills, skills, editSkill, fetchSkillsStatus: { loading, error, done } }) => {
+const Skills = ({
+  fetchSkills,
+  skills,
+  editSkill,
+  addEmptySkill,
+  publishSkill,
+  fetchSkillsStatus: { loading, error, done },
+}) => {
   useEffect(() => {
     if (!done) {
       fetchSkills();
@@ -19,7 +26,9 @@ const Skills = ({ fetchSkills, skills, editSkill, fetchSkillsStatus: { loading, 
       <h1>Skills</h1>
       {loading && 'Loading...'}
       {error && `Error! ${error.message}`}
-      {done && <SkillsList skills={skills} editSkill={editSkill} />}
+      {done && (
+        <SkillsList skills={skills} editSkill={editSkill} addEmptySkill={addEmptySkill} publishSkill={publishSkill} />
+      )}
     </div>
   );
 };
@@ -34,5 +43,7 @@ export default connect(
   {
     fetchSkills: skillActions.fetchSkills,
     editSkill: skillActions.editSkill,
+    addEmptySkill: skillActions.addEmptySkill,
+    publishSkill: skillActions.publishSkill,
   },
 )(React.memo(Skills));

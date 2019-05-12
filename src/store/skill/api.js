@@ -7,3 +7,7 @@ export const fetchSkills = () => {
 export const editSkill = ({ id, input }) => {
   return http.patch(`/skills/${id}`, input);
 };
+
+export const publishSkill = ({ input }) => {
+  return http.post(`/skills/`, input);
+};

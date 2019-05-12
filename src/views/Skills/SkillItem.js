@@ -18,20 +18,29 @@ const ColoredDiv = styled.div`
   cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
 `;
 
-const SkillItem = ({ skillData, editSkill }) => {
-  const [isEditMode, setEditMode] = useState(false);
+const SkillItem = ({ skillData, editSkill, publishSkill }) => {
+  const [isEditMode, setEditMode] = useState(skillData.isNew);
   const inactiveClass = classNames({ inactive: !isEditMode });
 
   return (
     <Formik
       initialValues={skillData}
-      onSubmit={({ _id, ...input }, actions) => {
-        editSkill(
-          { id: _id, input },
-          {
-            resolve: () => setEditMode(!isEditMode),
-          },
-        );
+      onSubmit={({ _id, localId, ...input }, actions) => {
+        if (skillData.isNew) {
+          publishSkill(
+            { input, localId },
+            {
+              resolve: () => setEditMode(!isEditMode),
+            },
+          );
+        } else {
+          editSkill(
+            { id: _id, input },
+            {
+              resolve: () => setEditMode(!isEditMode),
+            },
+          );
+        }
       }}
     >
       {({ handleChange, handleSubmit, values, setFieldValue }) => (
