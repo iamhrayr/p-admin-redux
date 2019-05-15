@@ -4,5 +4,5 @@ import { categorySagas } from './category';
 import { skillSagas } from './skill';
 
 export default function* rootSaga() {
-  yield all([...workSagas, ...categorySagas, ...skillSagas]);
+  yield all([workSagas(), categorySagas(), skillSagas()]);
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ChromePicker } from 'react-color';
 import { Form, Input, Button, List, Dropdown } from 'antd';
 import { Formik } from 'formik';
@@ -18,9 +18,13 @@ const ColoredDiv = styled.div`
   cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
 `;
 
-const SkillItem = ({ skillData, editSkill, publishSkill }) => {
+const SkillItem = ({ skillData, editSkill, publishSkill, deleteSkill }) => {
   const [isEditMode, setEditMode] = useState(skillData.isNew);
   const inactiveClass = classNames({ inactive: !isEditMode });
+
+  const deleteSkillHandler = useCallback(() => {
+    deleteSkill({ id: skillData._id });
+  }, [skillData._id]);
 
   return (
     <Formik
@@ -95,7 +99,13 @@ const SkillItem = ({ skillData, editSkill, publishSkill }) => {
                   }
                 }}
               />
-              <Button shape="circle" type="danger" icon="delete" size="small" />
+              <Button
+                shape="circle"
+                type="danger"
+                icon="delete"
+                size="small"
+                onClick={deleteSkillHandler}
+              />
             </Form.Item>
           </Form>
         </List.Item>

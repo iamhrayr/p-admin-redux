@@ -92,4 +92,4 @@ function* watcherSaga() {
   yield takeLatest(types.DELETE_WORK, deleteWorkHandler);
 }
 
-export default [fork(watcherSaga)];
+export default watcherSaga;

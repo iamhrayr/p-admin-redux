@@ -28,6 +28,11 @@ const skillListReducer = handleActions(
       const i = draft.allIds.indexOf(action.payload.localId);
       draft.allIds[i] = action.payload._id;
     }),
+    [successType(types.DELETE_SKILL)]: produce((draft, action) => {
+      delete draft.byId[action.payload._id];
+      const i = draft.allIds.indexOf(action.payload._id);
+      draft.allIds.splice(i, 1);
+    }),
   },
   {
     byId: {},

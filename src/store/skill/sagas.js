@@ -47,11 +47,28 @@ function* publishSkillHandler({ payload, meta = {} }) {
   }
 }
 
+function* deleteSkillHandler({ payload, meta = {} }) {
+  try {
+    yield put(begin(types.DELETE_SKILL));
+    const skill = yield call(api.deleteSkill, { id: payload.id });
+    yield put(success(types.DELETE_SKILL, skill.data));
+    if (meta.resolve) {
+      meta.resolve(skill.data);
+    }
+  } catch (e) {
+    yield put(failure(types.DELETE_SKILL, e.response.data));
+    if (meta.reject) {
+      meta.reject(e.response.data);
+    }
+  }
+}
+
 // watchers
 function* watcherSaga() {
   yield takeLatest(types.FETCH_SKILLS, fetchSkillsHandler);
   yield takeLatest(types.EDIT_SKILL, editSkillHandler);
+  yield takeLatest(types.DELETE_SKILL, deleteSkillHandler);
   yield takeLatest(types.PUBLISH_SKILL, publishSkillHandler);
 }
 
-export default [fork(watcherSaga)];
+export default watcherSaga;

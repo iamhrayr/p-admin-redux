@@ -6,17 +6,26 @@ import uuidv4 from 'uuid/v4';
 import SkillItem from './SkillItem';
 
 // export default ({ move, swap, push, insert, form }) => (
-const SkillsList = ({ skills, editSkill, addEmptySkill, publishSkill }) => (
+const SkillsList = ({ skills, editSkill, deleteSkill, addEmptySkill, publishSkill }) => (
   <>
     <List
       bordered={false}
       dataSource={skills}
-      renderItem={(item, index) => <SkillItem skillData={item} editSkill={editSkill} publishSkill={publishSkill} />}
+      renderItem={(item, index) => (
+        <SkillItem
+          skillData={item}
+          editSkill={editSkill}
+          publishSkill={publishSkill}
+          deleteSkill={deleteSkill}
+        />
+      )}
     />
     <Button
       type="primary"
       icon="plus-circle"
-      onClick={() => addEmptySkill({ localId: uuidv4(), name: '', percent: '', color: 'red', isNew: true })}
+      onClick={() =>
+        addEmptySkill({ localId: uuidv4(), name: '', percent: '', color: 'red', isNew: true })
+      }
     >
       Add new Skill
     </Button>

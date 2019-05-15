@@ -13,6 +13,7 @@ const Skills = ({
   editSkill,
   addEmptySkill,
   publishSkill,
+  deleteSkill,
   fetchSkillsStatus: { loading, error, done },
 }) => {
   useEffect(() => {
@@ -27,7 +28,13 @@ const Skills = ({
       {loading && 'Loading...'}
       {error && `Error! ${error.message}`}
       {done && (
-        <SkillsList skills={skills} editSkill={editSkill} addEmptySkill={addEmptySkill} publishSkill={publishSkill} />
+        <SkillsList
+          skills={skills}
+          editSkill={editSkill}
+          addEmptySkill={addEmptySkill}
+          publishSkill={publishSkill}
+          deleteSkill={deleteSkill}
+        />
       )}
     </div>
   );
@@ -43,6 +50,7 @@ export default connect(
   {
     fetchSkills: skillActions.fetchSkills,
     editSkill: skillActions.editSkill,
+    deleteSkill: skillActions.deleteSkill,
     addEmptySkill: skillActions.addEmptySkill,
     publishSkill: skillActions.publishSkill,
   },

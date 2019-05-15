@@ -20,4 +20,4 @@ function* watcherSaga() {
   yield takeLatest(types.FETCH_CATEGORIES, fetchCategoriesHandler);
 }
 
-export default [fork(watcherSaga)];
+export default watcherSaga;
