@@ -14,6 +14,7 @@ const Skills = ({
   addEmptySkill,
   publishSkill,
   deleteSkill,
+  deleteUnsavedSkill,
   fetchSkillsStatus: { loading, error, done },
 }) => {
   useEffect(() => {
@@ -34,6 +35,7 @@ const Skills = ({
           addEmptySkill={addEmptySkill}
           publishSkill={publishSkill}
           deleteSkill={deleteSkill}
+          deleteUnsavedSkill={deleteUnsavedSkill}
         />
       )}
     </div>
@@ -51,6 +53,7 @@ export default connect(
     fetchSkills: skillActions.fetchSkills,
     editSkill: skillActions.editSkill,
     deleteSkill: skillActions.deleteSkill,
+    deleteUnsavedSkill: skillActions.deleteUnsavedSkill,
     addEmptySkill: skillActions.addEmptySkill,
     publishSkill: skillActions.publishSkill,
   },

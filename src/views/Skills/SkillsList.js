@@ -6,7 +6,14 @@ import uuidv4 from 'uuid/v4';
 import SkillItem from './SkillItem';
 
 // export default ({ move, swap, push, insert, form }) => (
-const SkillsList = ({ skills, editSkill, deleteSkill, addEmptySkill, publishSkill }) => (
+const SkillsList = ({
+  skills,
+  editSkill,
+  deleteSkill,
+  deleteUnsavedSkill,
+  addEmptySkill,
+  publishSkill,
+}) => (
   <>
     <List
       bordered={false}
@@ -17,6 +24,7 @@ const SkillsList = ({ skills, editSkill, deleteSkill, addEmptySkill, publishSkil
           editSkill={editSkill}
           publishSkill={publishSkill}
           deleteSkill={deleteSkill}
+          deleteUnsavedSkill={deleteUnsavedSkill}
         />
       )}
     />

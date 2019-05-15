@@ -48,6 +48,7 @@ function* publishSkillHandler({ payload, meta = {} }) {
 }
 
 function* deleteSkillHandler({ payload, meta = {} }) {
+  debugger;
   try {
     yield put(begin(types.DELETE_SKILL));
     const skill = yield call(api.deleteSkill, { id: payload.id });

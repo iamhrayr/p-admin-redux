@@ -18,12 +18,16 @@ const ColoredDiv = styled.div`
   cursor: ${props => (!props.disabled ? 'pointer' : 'default')};
 `;
 
-const SkillItem = ({ skillData, editSkill, publishSkill, deleteSkill }) => {
+const SkillItem = ({ skillData, editSkill, publishSkill, deleteSkill, deleteUnsavedSkill }) => {
   const [isEditMode, setEditMode] = useState(skillData.isNew);
   const inactiveClass = classNames({ inactive: !isEditMode });
 
   const deleteSkillHandler = useCallback(() => {
-    deleteSkill({ id: skillData._id });
+    if (skillData.localId) {
+      deleteUnsavedSkill({ id: skillData.localId });
+    } else {
+      deleteSkill({ id: skillData._id });
+    }
   }, [skillData._id]);
 
   return (
