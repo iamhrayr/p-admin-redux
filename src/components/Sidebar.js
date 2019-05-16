@@ -22,6 +22,10 @@ const Sidebar = ({ history }) => {
           <Icon type="thunderbolt" />
           <span>Skills</span>
         </Menu.Item>
+        <Menu.Item path="/pages">
+          <Icon type="switcher" />
+          <span>Pages</span>
+        </Menu.Item>
         <Menu.Item path="/works">
           <Icon type="folder-open" />
           <span>Works</span>

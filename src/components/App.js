@@ -11,6 +11,7 @@ import history from 'Utils/history';
 // pages
 import Home from 'Views/Home';
 import Skills from 'Views/Skills';
+import Pages from 'Views/Pages';
 import WorkList from 'Views/Work/List';
 import NewWork from 'Views/Work/New';
 import EditWork from 'Views/Work/Edit';
@@ -37,6 +38,7 @@ const App = () => {
             <>
               <Route path="/" exact component={Home} />
               <Route path="/skills" component={Skills} />
+              <Route path="/pages" component={Pages} />
               <Route path="/works" exact component={WorkList} />
               <Route path="/works/edit/:id" component={EditWork} />
               <Route path="/works/new-work" component={NewWork} />
