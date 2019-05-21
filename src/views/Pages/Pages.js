@@ -7,6 +7,8 @@ import arrayMove from 'array-move';
 // import SortableItem from './SortableItem';
 import SortableList from './SortableList';
 
+import './pages.scss';
+
 const data = [
   {
     title: 'Ant Design Title 1',
@@ -29,23 +31,16 @@ export default () => {
     setPages(arrayMove(pages, oldIndex, newIndex));
   }, []);
 
-  return <SortableList items={pages} onSortEnd={onSortEnd} useDragHandle />;
-
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={data}
-      renderItem={item => (
-        <List.Item>
-          {/* <List.Item.Meta
-
-            title={<a href="https://ant.design">{item.title}</a>}
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-          /> */}
-          <a href="https://ant.design">{item.title}</a>
-        </List.Item>
-      )}
-    />
+    <>
+      <div className={styles.blah}>test</div>
+      <SortableList
+        items={pages}
+        onSortEnd={onSortEnd}
+        useDragHandle
+        helperClass={styles.sortableActive}
+      />
+    </>
   );
 
   return (
