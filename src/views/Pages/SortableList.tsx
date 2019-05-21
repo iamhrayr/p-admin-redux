@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { SortableContainer } from 'react-sortable-hoc';
 import { List } from 'antd';
 

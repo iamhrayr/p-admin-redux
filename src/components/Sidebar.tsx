@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { History } from 'history';
+import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 
-const Sidebar = ({ history }) => {
+type Props = {
+  history: History,
+}
+
+const Sidebar: React.FC<Props> = ({ history }) => {
   const [collabsed, setCollabsed] = useState(false);
 
   return (

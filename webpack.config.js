@@ -60,7 +60,7 @@ module.exports = {
       Components: path.resolve(__dirname, 'src/components'),
       Views: path.resolve(__dirname, 'src/views'),
     },
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
   },
   plugins: [
     new HtmlWebpackPlugin({

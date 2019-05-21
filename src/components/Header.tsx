@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
-export default () => {
+const Header = () => {
   const [collapsed, setCollapse] = useState(false);
 
   return (
@@ -14,3 +15,6 @@ export default () => {
     </Layout.Header>
   );
 };
+
+
+export default Header;

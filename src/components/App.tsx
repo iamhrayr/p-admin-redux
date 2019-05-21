@@ -1,5 +1,5 @@
+import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
 import { Router, Route } from 'react-router';
 import { Layout, Breadcrumb } from 'antd';
 
@@ -25,7 +25,7 @@ const layoutStyles = {
   minHeight: 280,
 };
 
-const App = () => {
+const App: React.FC = () => {
   // const a: number = 18;
 
   return (

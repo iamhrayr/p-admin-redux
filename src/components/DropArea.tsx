@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 const WrapperDiv = styled.div`
@@ -12,7 +12,13 @@ const WrapperDiv = styled.div`
   }
 `;
 
-export default ({ getInputProps, getRootProps, text }) => {
+type Props = {
+  getInputProps: () => any,
+  getRootProps: () => any,
+  text: string,
+}
+
+const DropArea: React.FC<Props> =  ({ getInputProps, getRootProps, text }) => {
   return (
     <WrapperDiv {...getRootProps()}>
       <input {...getInputProps()} />
@@ -20,3 +26,5 @@ export default ({ getInputProps, getRootProps, text }) => {
     </WrapperDiv>
   );
 };
+
+export default DropArea;

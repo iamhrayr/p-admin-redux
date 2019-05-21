@@ -1,5 +1,9 @@
-export default (data) => {
-  const byId = {};
+export interface KeyMap<T> {
+	[key: string]: T;
+}
+
+export default (data: Array<any>) => {
+  const byId: KeyMap<any> = {};
   const allIds = [];
   for (const item of data) {
     byId[item._id] = item;

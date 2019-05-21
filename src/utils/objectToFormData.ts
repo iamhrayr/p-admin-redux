@@ -1,30 +1,30 @@
 'use strict';
 
-function isUndefined(value) {
+function isUndefined(value: any) {
   return value === undefined;
 }
 
-function isNull(value) {
+function isNull(value: any) {
   return value === null;
 }
 
-function isObject(value) {
+function isObject(value: any) {
   return value === Object(value);
 }
 
-function isArray(value) {
+function isArray(value: any) {
   return Array.isArray(value);
 }
 
-function isDate(value) {
+function isDate(value: any) {
   return value instanceof Date;
 }
 
-function isBlob(value) {
+function isBlob(value: any) {
   return value && typeof value.size === 'number' && typeof value.type === 'string' && typeof value.slice === 'function';
 }
 
-function isFile(value) {
+function isFile(value: any) {
   return (
     isBlob(value) &&
     (typeof value.lastModifiedDate === 'object' || typeof value.lastModified === 'number') &&
@@ -32,11 +32,11 @@ function isFile(value) {
   );
 }
 
-function isFormData(value) {
+function isFormData(value: any) {
   return value instanceof FormData;
 }
 
-function objectToFormData(obj, cfg, fd, pre) {
+function objectToFormData(obj: any, cfg: any, fd: FormData, pre: any) {
   if (isFormData(cfg)) {
     pre = fd;
     fd = cfg;
@@ -56,13 +56,13 @@ function objectToFormData(obj, cfg, fd, pre) {
     }
   } else if (isArray(obj)) {
     if (obj.length) {
-      obj.forEach(function(value, index) {
+      obj.forEach(function(value: any, index: number) {
         // ATTENTION: this part is specific only for my api
         // Multer does not accept indexed array files like image[1], image[2]
         if (value instanceof File || value instanceof Blob) {
-          var key = pre;
+          var key: any = pre;
         } else {
-          var key = pre + '[' + index + ']';
+          var key: any = pre + '[' + index + ']';
         }
         objectToFormData(value, cfg, fd, key);
       });

@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "baseUrl": "./",
+    "paths": {
+      "Views/*": ["src/views/*"],
+      "Components/*": ["src/components/*"],
+      "Utils/*": ["src/utils/*"],
+      "Store/*": ["src/store/*"]
+    },
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",

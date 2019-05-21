@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useCallback } from 'react';
 import { Formik } from 'formik';
 import { Form, Input, Button, List, Dropdown, Avatar } from 'antd';
 // import { SortableContainer, SortableElement } from 'react-sortable-hoc';
@@ -7,7 +8,7 @@ import arrayMove from 'array-move';
 // import SortableItem from './SortableItem';
 import SortableList from './SortableList';
 
-import './pages.scss';
+import styles from './pages.scss';
 
 const data = [
   {
@@ -24,7 +25,7 @@ const data = [
   },
 ];
 
-export default () => {
+const Pages: React.FC = () => {
   const [pages, setPages] = useState(data);
 
   const onSortEnd = useCallback(({ oldIndex, newIndex }) => {
@@ -43,25 +44,27 @@ export default () => {
     </>
   );
 
-  return (
-    <Formik>
-      {({ handleChange, handleSubmit, values, setFieldValue }) => {
-        //lorem
-        return (
-          <Form layout="inline">
-            <Form.Item label="Name">
-              <Input
-              // className={inactiveClass}
-              // placeholder="Name"
-              // value={values.name}
-              // onChange={handleChange}
-              // name={`name`}
-              // readOnly={!isEditMode}
-              />
-            </Form.Item>
-          </Form>
-        );
-      }}
-    </Formik>
-  );
+  // return (
+  //   <Formik>
+  //     {({ handleChange, handleSubmit, values, setFieldValue }) => {
+  //       //lorem
+  //       return (
+  //         <Form layout="inline">
+  //           <Form.Item label="Name">
+  //             <Input
+  //             // className={inactiveClass}
+  //             // placeholder="Name"
+  //             // value={values.name}
+  //             // onChange={handleChange}
+  //             // name={`name`}
+  //             // readOnly={!isEditMode}
+  //             />
+  //           </Form.Item>
+  //         </Form>
+  //       );
+  //     }}
+  //   </Formik>
+  // );
 };
+
+export default Pages;
