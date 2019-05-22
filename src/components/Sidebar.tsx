@@ -18,29 +18,29 @@ const Sidebar: React.FC<Props> = ({ history }) => {
         theme="dark"
         defaultSelectedKeys={['1']}
         mode="inline"
-        onClick={({ item }) => history.push(item.props.path)}
+        onClick={({ item, key }) => history.push(key)}
       >
-        <Menu.Item path="/">
+        <Menu.Item key="/">
           <Icon type="home" />
           <span>Home</span>
         </Menu.Item>
-        <Menu.Item path="/skills">
+        <Menu.Item key="/skills">
           <Icon type="thunderbolt" />
           <span>Skills</span>
         </Menu.Item>
-        <Menu.Item path="/pages">
+        <Menu.Item key="/pages">
           <Icon type="switcher" />
           <span>Pages</span>
         </Menu.Item>
-        <Menu.Item path="/works">
+        <Menu.Item key="/works">
           <Icon type="folder-open" />
           <span>Works</span>
         </Menu.Item>
-        <Menu.Item path="/about">
+        <Menu.Item key="/about">
           <Icon type="info-circle" />
           <span>About</span>
         </Menu.Item>
-        <Menu.Item path="/contact">
+        <Menu.Item key="/contact">
           <Icon type="mail" />
           <span>Contact</span>
         </Menu.Item>

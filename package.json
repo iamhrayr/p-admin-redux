@@ -1,8 +1,8 @@
 {
-  "name": "minimal-webpack-babel-react-kit",
+  "name": "p-admin-redux",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/iamhrayr/minimal-webpack-babel-react-kit.git",
+  "repository": "https://github.com/iamhrayr/p-admin-redux.git",
   "author": "iamhrayr",
   "license": "MIT",
   "scripts": {
