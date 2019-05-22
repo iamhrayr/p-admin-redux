@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { beginType, successType, failureType } from 'redux-api-status';
 
 import * as types from './types';
+import { CategoryReducer, CategoryList } from './types';
 import dataToIdMap from 'Utils/dataToIdMap';
 
 const categoryListReducer = handleActions(
@@ -25,6 +26,6 @@ const categoryListReducer = handleActions(
   },
 );
 
-export default combineReducers({
+export default combineReducers<CategoryReducer>({
   list: categoryListReducer,
 });

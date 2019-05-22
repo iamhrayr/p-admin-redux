@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/build'),
     publicPath: '/',
@@ -59,6 +59,7 @@ module.exports = {
       Store: path.resolve(__dirname, 'src/store'),
       Components: path.resolve(__dirname, 'src/components'),
       Views: path.resolve(__dirname, 'src/views'),
+      // 'app-types': path.resolve(__dirname, 'src/app-types.ts'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.scss'],
   },

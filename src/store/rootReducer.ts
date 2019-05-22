@@ -5,7 +5,14 @@ import workReducer from './work';
 import categoryReducer from './category';
 import skillReducer from './skill';
 
-export default combineReducers({
+// import reducer types
+import { CategoryReducer } from './category/types';
+
+type AppState = {
+  category: CategoryReducer;
+};
+
+export default combineReducers<AppState>({
   work: workReducer,
   category: categoryReducer,
   skill: skillReducer,
