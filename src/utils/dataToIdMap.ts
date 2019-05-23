@@ -1,9 +1,5 @@
-export interface KeyMap<T> {
-	[key: string]: T;
-}
-
 export default (data: Array<any>) => {
-  const byId: KeyMap<any> = {};
+  const byId: Record<string, any> = {};
   const allIds = [];
   for (const item of data) {
     byId[item._id] = item;

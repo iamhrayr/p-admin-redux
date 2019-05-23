@@ -4,3 +4,7 @@ export type Pagination = {
   pages?: number;
   total?: number;
 };
+
+export type ApiListResponse = {
+  docs: Array<any>;
+};
