@@ -7,4 +7,4 @@ export type Pagination = {
 
 export type ApiListResponse = {
   docs: Array<any>;
-};
+} & Pagination;
