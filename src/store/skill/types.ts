@@ -16,6 +16,7 @@ export type Skill = {
   color: string;
   percent: number;
   localId?: string;
+  isNew?: boolean;
 };
 
 export type SkillListReducer = {
@@ -26,4 +27,21 @@ export type SkillListReducer = {
 
 export type SkillReducer = {
   list: SkillListReducer;
+};
+
+// action payloads
+export type EditSkillPayload = {
+  id: string;
+  input: Partial<Skill>;
+};
+
+export type DeleteSkillPayload = {
+  id: string;
+};
+
+export type AddEmptySkillPayload = Skill;
+
+export type PublishSkillPayload = {
+  localId: string;
+  input: Partial<Skill>;
 };

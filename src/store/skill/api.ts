@@ -12,6 +12,6 @@ export const publishSkill = ({ input }) => {
   return http.post(`/skills/`, input);
 };
 
-export const deleteSkill = ({ id }) => {
+export const deleteSkill = ({ id }: { id: string }) => {
   return http.delete(`/skills/${id}`);
 };
