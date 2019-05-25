@@ -6,15 +6,16 @@ import categoryReducer from './category';
 import skillReducer from './skill';
 
 // import reducer types
-import { CategoryReducer } from './category/types';
+// import { CategoryReducer } from './category/types';
+// import { CategoryReducer } from './category/types';
 
-type AppState = {
-  category: CategoryReducer;
-};
-
-export default combineReducers<AppState>({
+const rootReducer = combineReducers({
   work: workReducer,
   category: categoryReducer,
   skill: skillReducer,
   requests: createStatusReducer(),
 });
+
+export type AppState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

@@ -1,7 +1,7 @@
 import reducer from './reducers';
 import * as skillActions from './actions';
-import * as skillTypes from './types';
 import * as skillSelectors from './selectors';
+import skillTypes from './types';
 import skillSagas from './sagas';
 
 export { skillActions, skillSagas, skillTypes, skillSelectors };

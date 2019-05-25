@@ -1,7 +1,7 @@
 import { call, put, takeLatest, select, throttle, fork } from 'redux-saga/effects';
 import { begin, success, failure } from 'redux-api-status/actions';
 
-import * as types from './types';
+import types from './types';
 import * as api from './api';
 
 // worker Sagas
